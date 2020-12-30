@@ -18,13 +18,8 @@ import javax.persistence.Table;
 public class NoteEntity {
 
     @Id
-    @Column(name = "id")
     private int id;
-
-    @Column(name = "TITLEOFNOTE")
     private String titleOfNote;
-
-    @Column(name = "CONTENTOFNOTE")
     private String contentOfNote;
 
     public NoteEntity(NoteDao noteDao) {
