@@ -20,9 +20,9 @@ import java.util.Random;
 @RequestMapping("/")
 public class NoteController {
 
-    private Logger logger = LoggerFactory.getLogger(NoteController.class);
+    private final Logger logger = LoggerFactory.getLogger(NoteController.class);
 
-    private NoteService noteService;
+    private final NoteService noteService;
 
     @Autowired
     public NoteController(NoteService noteService) {
@@ -30,16 +30,7 @@ public class NoteController {
     }
 
     @PostMapping("save")
-    public ResponseEntity save(@RequestBody NoteDao noteDao) {
-        Optional<Integer> id = Optional.of(noteDao.getId());
-        id.ifPresent(integer -> {
-            int newId = new Random().nextInt();
-            if (newId < 0) {
-                newId = -newId;
-            }
-            noteDao.setId(newId);
-        });
+    public void save(@RequestBody NoteDao noteDao) {
         this.noteService.saveNote(noteDao);
-        return new ResponseEntity(HttpStatus.OK);
     }
 }

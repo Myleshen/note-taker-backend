@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteService {
 
-    private Logger logger = LoggerFactory.getLogger(NoteService.class);
+    private final Logger logger = LoggerFactory.getLogger(NoteService.class);
     private final NoteRepository noteRepository;
 
     @Autowired
