@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.UUID;
 
 
 @Entity
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 public class NotesEntity {
 
     @Id
-    private int id;
+    private UUID id;
     private String titleOfNote;
     private String contentOfNote;
 

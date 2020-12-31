@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User Creation</title>
 </head>
+
 <body>
-    <form method="post" action="/signup">
+    <form action="#" th:action="@{/signup}" method="post" th:object="${UserEntity}">
         <input type="text" name="userName" aria-label="UserName"/>
         <input type="password" name="userPass" aria-label="Password"/>
         <input type="submit" value="Submit"/>

@@ -1,4 +1,4 @@
-package com.myleshen.notes.security.dao;
+package com.myleshen.notes.security.model;
 
 import com.myleshen.notes.security.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,14 +10,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDao implements UserDetails {
+public class UserModel implements UserDetails {
 
     private final String userName;
     private final String userPass;
     private final boolean active;
     private final List<GrantedAuthority> authorities;
 
-    public UserDao(UserEntity userEntity) {
+    public UserModel(UserEntity userEntity) {
         this.userName = userEntity.getUserName();
         this.userPass = userEntity.getUserPass();
         this.active = userEntity.getActive();
