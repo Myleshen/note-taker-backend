@@ -29,4 +29,9 @@ public class UserService implements UserDetailsService {
 
         return userEntity.map(UserDao::new).get();
     }
+
+    public void addUser(UserEntity userEntity) {
+        this.userRepository.save(userEntity);
+    }
+
 }

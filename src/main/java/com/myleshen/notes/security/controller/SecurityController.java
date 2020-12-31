@@ -30,15 +30,16 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasRole("USER")
-                .antMatchers("/").hasRole("VIEWER")
+                .antMatchers("/").permitAll()
                 .antMatchers("/api").permitAll()
                 .and().formLogin()
                         .permitAll()
+                        .loginPage("/login")
                         .failureUrl("/login_error")
                         .successForwardUrl("/login_success")
                 .and().logout()
                         .permitAll()
-                        .logoutUrl("/doLogout")
+                        .logoutUrl("/logout")
                 .and().exceptionHandling().accessDeniedPage("/error");
     }
 
