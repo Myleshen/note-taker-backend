@@ -6,32 +6,44 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityController extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityController(UserService userService) {
+    public SecurityController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService);
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/api").hasRole("API_USER")
+                .antMatchers("/notes").hasRole("USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin()
                     .loginPage("/login")
+                    .usernameParameter("userName")
+                    .passwordParameter("userPass")
+                    .successForwardUrl("/login_success")
+                    .failureUrl("/login_error")
                     .permitAll()
-                .and().logout().permitAll()
+                .and().logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/logout_success")
+                    .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/error");
+
     }
 
 }

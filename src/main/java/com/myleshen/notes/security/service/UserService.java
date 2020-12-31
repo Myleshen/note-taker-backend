@@ -7,18 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -35,18 +33,10 @@ public class UserService implements UserDetailsService {
     }
 
     public void addUser(UserEntity userEntity) {
-        userEntity.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
-        userEntity.setRoleList("USER");
-        userEntity.setActive(true);
-        userEntity.setId(UUID.randomUUID());
         this.userRepository.save(userEntity);
     }
 
     public void addAdminUser(UserEntity userEntity) {
-        userEntity.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
-        userEntity.setRoleList("ADMIN");
-        userEntity.setActive(true);
-        userEntity.setId(UUID.randomUUID());
         this.userRepository.save(userEntity);
     }
 

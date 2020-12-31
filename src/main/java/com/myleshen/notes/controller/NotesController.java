@@ -26,12 +26,6 @@ public class NotesController {
         this.notesService = notesService;
     }
 
-    @GetMapping("/index")
-    public String index() {
-        logger.info("Index page has been Loaded");
-        return "NotesDashboard";
-    }
-
     @PostMapping("/save")
     public String save(@RequestBody NotesDao notesDao) {
         this.notesService.saveNote(notesDao);
