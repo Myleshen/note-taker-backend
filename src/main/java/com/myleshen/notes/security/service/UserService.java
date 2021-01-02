@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -38,6 +39,17 @@ public class UserService implements UserDetailsService {
 
     public void addAdminUser(UserEntity userEntity) {
         this.userRepository.save(userEntity);
+    }
+
+    public UUID findUserUUID(String userName) {
+        Optional<UserEntity> userEntity = this.userRepository.findByUserName(userName);
+        return userEntity.map(UserEntity::getId).orElse(null);
+    }
+
+
+    public UserEntity findByUserName(String userName) {
+        Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
+        return userEntity.get();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.myleshen.notes.dao;
+package com.myleshen.notes.api.dao;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

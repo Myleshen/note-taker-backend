@@ -1,4 +1,4 @@
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>
         Saved
@@ -7,6 +7,11 @@
 
 <body>
 <p>The Entity has been Saved..</p>
+<h1>To Logout</h1>
+<form method="post" th:action="@{/logout}" action="#">
+    <input type="Submit" value="Submit"/>
+</form>
+
 </body>
 
 </html>

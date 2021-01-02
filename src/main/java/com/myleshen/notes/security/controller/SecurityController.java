@@ -27,10 +27,13 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().ignoringAntMatchers("/api");
+
         http.authorizeRequests()
                 .antMatchers("/api").hasRole("API_USER")
                 .antMatchers("/notes").hasRole("USER")
-                .antMatchers("/").permitAll()
+                .antMatchers("/signup").permitAll()
+                .antMatchers("/login").permitAll()
                 .and().formLogin()
                     .loginPage("/login")
                     .usernameParameter("userName")
@@ -41,9 +44,7 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
                 .and().logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/logout_success")
-                    .permitAll()
-                .and().exceptionHandling().accessDeniedPage("/error");
-
+                    .permitAll();
     }
 
 }
