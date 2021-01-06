@@ -22,7 +22,7 @@ import java.util.UUID;
 
 
 @Controller
-@RequestMapping("/notes")
+@RequestMapping("/notes/")
 public class NotesController {
 
     private final Logger logger = LoggerFactory.getLogger(NotesController.class);
@@ -36,7 +36,13 @@ public class NotesController {
         this.userService = userService;
     }
 
-    @PostMapping("/save")
+    @GetMapping("dashboard")
+    public String getAll(Model model) {
+        model.addAttribute("notes", this.notesService.getAllNotes());
+        return "Notes/NotesDashboard";
+    }
+
+    @PostMapping("save")
     @ResponseStatus(HttpStatus.CREATED)
     public String save(
             @ModelAttribute("NotesEntity") NotesEntity notesEntity,
@@ -48,14 +54,11 @@ public class NotesController {
         return "Notes/EntitySaved";
     }
 
-    @GetMapping("/getAllNotes")
-    public String getAll(Model model) {
-        model.addAttribute("notes", this.notesService.getAllNotes());
-        return "Notes/NotesDashboard";
-    }
-
-    @GetMapping("/create")
-    public String createNote(Model model) {
+    @GetMapping("create")
+    public String createNote(Model model, @CurrentSecurityContext(expression =
+            "authentication")
+    Authentication authentication ) {
+        logger.info("User is Logged In " + authentication.getName());
         model.addAttribute("NotesEntity", new NotesEntity());
         return "Notes/CreateNote";
     }

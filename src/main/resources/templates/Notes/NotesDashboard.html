@@ -7,6 +7,28 @@
 
 <body>
 <h1> Dashboard </h1>
-<a href="/notes/create"> Create a Note </a>
+<a th:href="@{/notes/create}"> Create a Note </a>
+<form method="post" th:action="@{/logout}" action="#">
+    <input type="Submit" value="Logout"/>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th> Title </th>
+            <th> Content </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:if="${notes.isEmpty()}">
+            <td colspan="3"> No Notes Available </td>
+        </tr>
+        <tr th:each="note : ${notes}">
+            <td><span th:text="${note.titleOfNote}"> Title </span></td>
+            <td><span th:text="${note.contentOfNote}"> Content </span></td>
+        </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

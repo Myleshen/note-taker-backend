@@ -6,8 +6,8 @@
 </head>
 <body>
     <form action="#" th:action="@{/notes/save}" method="post" th:object="${NotesEntity}">
-        <input type="text" name="titleOfNote" aria-label="UserName"/>
-        <input type="text" name="contentOfNote" aria-label="Password"/>
+        <input type="text" name="titleOfNote" aria-label="Title"/>
+        <textarea name="contentOfNote" aria-label="Content"></textarea>
         <input type="submit" value="Submit"/>
     </form>
 </body>

@@ -46,13 +46,13 @@ public class DefaultController {
     @PostMapping("login_success")
     public String loadLoginSuccessPage(@CurrentSecurityContext(expression = "authentication")
                                                    Authentication authentication) {
-        logger.info("User Has been Logged In " + authentication.getName());
-        return "Notes/NotesDashboard";
+        logger.debug("User Has been Logged In " + authentication.getName());
+        return "Login/LoggedIn";
     }
 
     @GetMapping("login_error")
     public String loadLoginErrorPage() {
-        logger.info("Login attempt has been made...");
+        logger.warn("Login attempt has been made...");
         return "Login/login_error";
     }
 
@@ -76,6 +76,7 @@ public class DefaultController {
 
     @GetMapping("logout_success")
     public String loadLogoutSuccessPage() {
+        logger.debug("User has Successfully Logged out");
         return "Login/logout_success";
     }
 
