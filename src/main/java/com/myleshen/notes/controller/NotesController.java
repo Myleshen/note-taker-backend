@@ -2,6 +2,7 @@ package com.myleshen.notes.controller;
 
 
 import com.myleshen.notes.entity.NotesEntity;
+import com.myleshen.notes.security.entity.UserEntity;
 import com.myleshen.notes.security.service.UserService;
 import com.myleshen.notes.service.NotesService;
 import org.slf4j.Logger;
@@ -37,8 +38,12 @@ public class NotesController {
     }
 
     @GetMapping("dashboard")
-    public String getAll(Model model) {
-        model.addAttribute("notes", this.notesService.getAllNotes());
+    public String getAll(Model model, @CurrentSecurityContext(expression =
+            "authentication")
+            Authentication authentication ) {
+        UserEntity user = userService.findByUserName(authentication.getName());
+        model.addAttribute("notes",
+                this.notesService.getAllNotes(user));
         return "Notes/NotesDashboard";
     }
 
@@ -55,10 +60,7 @@ public class NotesController {
     }
 
     @GetMapping("create")
-    public String createNote(Model model, @CurrentSecurityContext(expression =
-            "authentication")
-    Authentication authentication ) {
-        logger.info("User is Logged In " + authentication.getName());
+    public String createNote(Model model) {
         model.addAttribute("NotesEntity", new NotesEntity());
         return "Notes/CreateNote";
     }

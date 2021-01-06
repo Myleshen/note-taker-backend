@@ -46,7 +46,7 @@ public class DefaultController {
     @PostMapping("login_success")
     public String loadLoginSuccessPage(@CurrentSecurityContext(expression = "authentication")
                                                    Authentication authentication) {
-        logger.debug("User Has been Logged In " + authentication.getName());
+        logger.info("User Has been Logged In " + authentication.getName());
         return "Login/LoggedIn";
     }
 
@@ -76,7 +76,7 @@ public class DefaultController {
 
     @GetMapping("logout_success")
     public String loadLogoutSuccessPage() {
-        logger.debug("User has Successfully Logged out");
+        logger.info("User has Successfully Logged out");
         return "Login/logout_success";
     }
 
