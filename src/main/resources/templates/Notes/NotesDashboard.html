@@ -26,6 +26,12 @@
         <tr th:each="note : ${notes}">
             <td><span th:text="${note.titleOfNote}"> Title </span></td>
             <td><span th:text="${note.contentOfNote}"> Content </span></td>
+            <form th:method="delete" th:action="@{/notes/delete}" action="#" th:object="${note}">
+                <input type="hidden" name="id" th:value="${note.id}">
+                <input type="hidden" name="titleOfNote" th:value="${note.titleOfNote}">
+                <input type="hidden" name="contentOfNote" th:value="${note.contentOfNote}">
+                <button type="submit">Delete</button>
+            </form>
         </tr>
     </tbody>
 </table>

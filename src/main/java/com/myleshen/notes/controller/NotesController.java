@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,7 @@ public class NotesController {
         notesEntity.setId(UUID.randomUUID());
         notesEntity.setUserEntity(userService.findByUserName(authentication.getName()));
         this.notesService.saveNote(notesEntity);
+        logger.debug("A Note Has been Created by user: " + authentication.getName());
         return "Notes/EntitySaved";
     }
 
@@ -63,6 +65,12 @@ public class NotesController {
     public String createNote(Model model) {
         model.addAttribute("NotesEntity", new NotesEntity());
         return "Notes/CreateNote";
+    }
+
+    @DeleteMapping("delete")
+    public String  deleteNote(@ModelAttribute("NotesEntity") NotesEntity notesEntity) {
+        this.notesService.deleteNote(notesEntity);
+        return "Notes/NoteDeleted";
     }
 
 }

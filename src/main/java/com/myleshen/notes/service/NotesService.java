@@ -29,4 +29,8 @@ public class NotesService {
         return this.notesRepository.findAllByUserEntity(userEntity);
     }
 
+    public void deleteNote(NotesEntity notesEntity) {
+        this.notesRepository.deleteById(notesEntity.getId());
+    }
+
 }
