@@ -37,9 +37,6 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(userEntity);
     }
 
-    public void addAdminUser(UserEntity userEntity) {
-        this.userRepository.save(userEntity);
-    }
 
     public UUID findUserUUID(String userName) {
         Optional<UserEntity> userEntity = this.userRepository.findByUserName(userName);
@@ -49,7 +46,12 @@ public class UserService implements UserDetailsService {
 
     public UserEntity findByUserName(String userName) {
         Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
-        return userEntity.get();
+        return userEntity.orElse(null);
+    }
+
+    public Boolean findByUserNameBoolean(String userName) {
+        Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
+        return userEntity.isPresent();
     }
 
 }

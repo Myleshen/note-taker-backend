@@ -65,6 +65,9 @@ public class DefaultController {
 
     @PostMapping("signup")
     public String createUser(@ModelAttribute("UserEntity") UserEntity userEntity) {
+        if (userService.findByUserNameBoolean(userEntity.getUserName())) {
+            return "User/UserNameTaken";
+        }
         userEntity.setUserPass(passwordEncoder.encode(userEntity.getUserPass()));
         userEntity.setRoleList("USER");
         userEntity.setActive(true);
